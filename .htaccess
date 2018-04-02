@@ -1,0 +1,4 @@
+RewriteEngine on
+
+RewriteRule ^about$ about.html
+RewriteRule ^team$ team.html
