@@ -149,49 +149,9 @@ namespace StartFinance.Views
         private async void UpdatePersonalDetails_Click(object sender, RoutedEventArgs e)
         {
 
-            string populatedFirstName;
-            populatedFirstName = _FirstName.Text.ToString();
+         //   string populatedFirstName;
+         //   populatedFirstName = _FirstName.Text.ToString();
 
-            if (populatedFirstName == "")
-            {
-
-                string selEmail = ((Personal)PersonalView.SelectedItem).Email;
-                string selFirstName = ((Personal)PersonalView.SelectedItem).FirstName;
-                string selLastName = ((Personal)PersonalView.SelectedItem).LastName;
-                string selAddress = ((Personal)PersonalView.SelectedItem).Address;
-                string selDOB = ((Personal)PersonalView.SelectedItem).DOB;
-                string selGender = ((Personal)PersonalView.SelectedItem).Gender;
-                string selMobilePhone = ((Personal)PersonalView.SelectedItem).MobilePhone;
-
-                _Email.Text = selEmail;
-                _FirstName.Text = selFirstName;
-                _LastName.Text = selLastName;
-                _Address.Text = selAddress;
-                _DOB.Text = selDOB;
-                if (selGender == "Male")
-                {
-                    radioButtonMale.IsChecked = true;
-                    radioButtonFemale.IsChecked = false;
-                }
-                else if (selGender == "Female")
-                {
-                    radioButtonFemale.IsChecked = true;
-                    radioButtonMale.IsChecked = false;
-                }
-                _MobilePhone.Text = selMobilePhone;
-
-                updateButton.Visibility = Visibility;
-
-            }
-
-            else
-            {
-
-               
-
-            }
-
-            /*
             try
             {
                 string AccSelection = ((Personal)PersonalView.SelectedItem).Email;
@@ -202,10 +162,32 @@ namespace StartFinance.Views
                 }
                 else
                 {
-                    conn.CreateTable<Personal>();
-                    var query1 = conn.Table<Personal>();
-                    var query3 = conn.Query<Personal>("DELETE FROM Personal WHERE Email ='" + AccSelection + "'");
-                    PersonalView.ItemsSource = query1.ToList();
+                    string selEmail = ((Personal)PersonalView.SelectedItem).Email;
+                    string selFirstName = ((Personal)PersonalView.SelectedItem).FirstName;
+                    string selLastName = ((Personal)PersonalView.SelectedItem).LastName;
+                    string selAddress = ((Personal)PersonalView.SelectedItem).Address;
+                    string selDOB = ((Personal)PersonalView.SelectedItem).DOB;
+                    string selGender = ((Personal)PersonalView.SelectedItem).Gender;
+                    string selMobilePhone = ((Personal)PersonalView.SelectedItem).MobilePhone;
+
+                    _Email.Text = selEmail;
+                    _FirstName.Text = selFirstName;
+                    _LastName.Text = selLastName;
+                    _Address.Text = selAddress;
+                    _DOB.Text = selDOB;
+                    if (selGender == "Male")
+                    {
+                        radioButtonMale.IsChecked = true;
+                        radioButtonFemale.IsChecked = false;
+                    }
+                    else if (selGender == "Female")
+                    {
+                        radioButtonFemale.IsChecked = true;
+                        radioButtonMale.IsChecked = false;
+                    }
+                    _MobilePhone.Text = selMobilePhone;
+
+                    updateButton.Visibility = Visibility;
                 }
             }
             catch (NullReferenceException)
@@ -213,8 +195,7 @@ namespace StartFinance.Views
                 MessageDialog dialog = new MessageDialog("Not selected the Item", "Oops..!");
                 await dialog.ShowAsync();
             }
-
-    */
+            
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -226,14 +207,14 @@ namespace StartFinance.Views
         {
 
 
-            string selectGender = "";
+            string updatedSelectGender = "";
             if (radioButtonMale.IsChecked == true)
             {
-                selectGender = "Male";
+                updatedSelectGender = "Male";
             }
             else if (radioButtonFemale.IsChecked == true)
             {
-                selectGender = "Female";
+                updatedSelectGender = "Female";
             }
             else
             {
@@ -245,22 +226,16 @@ namespace StartFinance.Views
 
             conn.CreateTable<Personal>();
 
-            var query1 = conn.Table<Personal>();
-            var query3 = conn.Query<Personal>("DELETE FROM Personal WHERE Email ='" + selEmail + "'");
-            PersonalView.ItemsSource = query1.ToList();
+            string update_FirstName = _FirstName.Text.ToString();
+            string update_LastName = _LastName.Text.ToString();
+            string update_DOB = _DOB.Text.ToString();
+            string update_Gender = updatedSelectGender;
+            string update_Email = _Email.Text.ToString();
+            string update_Address = _Address.Text.ToString();
+            string update_MobilePhone = _MobilePhone.Text.ToString();
 
-
-            conn.Insert(new Personal
-            {
-                FirstName = _FirstName.Text.ToString(),
-                LastName = _LastName.Text.ToString(),
-                DOB = _DOB.Text.ToString(),
-                Gender = selectGender,
-                Email = _Email.Text.ToString(),
-                Address = _Address.Text.ToString(),
-                MobilePhone = _MobilePhone.Text.ToString()
-            });
-
+            var query3 = conn.Query<Personal>("UPDATE Personal SET FirstName =  '" + update_FirstName + "', LastName = '" + update_LastName + "', DOB = '" + update_DOB + "', Gender = '" + update_Gender + "', Email = '" + update_Email + "', Address = '" + update_Address + "', MobilePhone = '" + update_MobilePhone + "' WHERE Email ='" + selEmail + "'");
+            
             _Email.Text = "";
             _FirstName.Text = "";
             _LastName.Text = "";
@@ -268,7 +243,9 @@ namespace StartFinance.Views
             _DOB.Text = "";
             _MobilePhone.Text = "";
 
-            // Creating table
+            updateButton.Visibility = Visibility.Collapsed;
+
+            // Updating table
             Results();
 
 
