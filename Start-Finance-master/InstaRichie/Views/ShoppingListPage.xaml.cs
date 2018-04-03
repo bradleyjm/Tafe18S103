@@ -118,9 +118,70 @@ namespace StartFinance.Views
         {
             Results();
         }
-    
 
 
+        private async void UpdateShoppingList_Click(object sender, RoutedEventArgs e)
+        {
 
-}
+            //   string populatedFirstName;
+            //   populatedFirstName = _FirstName.Text.ToString();
+            string selShopName = ((ShoppingList)ShoppingListView.SelectedItem).ShopName;
+
+            try
+            {
+                string AccSelection = ((ShoppingList)ShoppingListView.SelectedItem).NameOfItem;
+                if (AccSelection == "")
+                {
+                    MessageDialog dialog = new MessageDialog("Not selected the Item", "Oops..!");
+                    await dialog.ShowAsync();
+                }
+                else
+                {
+                    string selNameOfItem = ((ShoppingList)ShoppingListView.SelectedItem).NameOfItem;
+                    string selShoppingDate = ((ShoppingList)ShoppingListView.SelectedItem).ShoppingDate;
+                    double selPriceQuoted = ((ShoppingList)ShoppingListView.SelectedItem).PriceQuoted;
+
+                    _Shopname.Text = selShopName;
+                    _Shopitem.Text = selNameOfItem;
+                    _Shopdate.Text = selShoppingDate;
+                    _PriceQuoted.Text = selPriceQuoted.ToString();
+
+                    updateButton.Visibility = Visibility;
+                }
+            }
+            catch (NullReferenceException)
+            {
+                MessageDialog dialog = new MessageDialog("Not selected the Item", "Oops..!");
+                await dialog.ShowAsync();
+            }
+
+        }
+
+        private async void updateButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            // get selected shop name and product to update
+            string AccSelectionShop = ((ShoppingList)ShoppingListView.SelectedItem).ShopName;
+            string AccSelectionItem = ((ShoppingList)ShoppingListView.SelectedItem).NameOfItem;
+
+            string updateShopName = _Shopname.Text.ToString();
+            string updateShopItem = _Shopitem.Text.ToString();
+            string updateShopDate = _Shopdate.Text.ToString();
+            double updatePriceQuoted = Convert.ToDouble(_PriceQuoted.Text);
+
+            var query3 = conn.Query<ShoppingList>("UPDATE ShoppingList SET ShopName =  '" + updateShopName + "', NameOfItem = '" + updateShopItem + "', ShoppingDate = '" + updateShopDate + "', PriceQuoted = '" + updatePriceQuoted + "' WHERE ShopName ='" + AccSelectionShop + "' AND NameOfItem ='" + AccSelectionItem + "'");
+
+            _Shopname.Text = "";
+            _Shopitem.Text = "";
+            _Shopdate.Text = "";
+            _PriceQuoted.Text = "";
+
+            updateButton.Visibility = Visibility.Collapsed;
+
+            // Updating table and make update button collapse
+            Results();
+        }
+
+
+    }
 }

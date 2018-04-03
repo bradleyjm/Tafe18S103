@@ -88,7 +88,8 @@
         <!--primary commands-->
         <controls:PageHeader.PrimaryCommands>
             <AppBarButton Icon="Add" Label="Add to Shopping List" Click="AddShopItem_Click"/>
-            <AppBarButton Icon="Delete" Label="Delete from Shopping List" Click="DeleteShopItem_Click"/>
+                <AppBarButton Icon="Edit" Label="Update the Shopping List" Click="UpdateShoppingList_Click"/>
+               <AppBarButton Icon="Delete" Label="Delete from Shopping List" Click="DeleteShopItem_Click"/>
         </controls:PageHeader.PrimaryCommands>
     </controls:PageHeader>
 
@@ -105,11 +106,13 @@
                 <StackPanel Grid.Row="0"
                             Orientation="Vertical" VerticalAlignment="Stretch"
                             HorizontalAlignment="Stretch">
-                    <TextBox x:Name="_Shopname" PlaceholderText="Name of shop" Header="Shop Name"/>
+                        <TextBox x:Name="_Shopname" PlaceholderText="Name of shop" Header="Shop Name"/>
                         <TextBox x:Name="_Shopitem" PlaceholderText="Name of item" Header="Shop Item"/>
                         <TextBox x:Name="_Shopdate" PlaceholderText="Shopping date" Header="Shop Date"/>
                         <TextBox x:Name="_PriceQuoted" Header="Price quoted" PlaceholderText="1000.00" TextWrapping="Wrap" InputScope="Number"/>
-                </StackPanel>
+                        <Button x:Name="updateButton" Visibility="Collapsed" Content="Update Changes" Margin="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="updateButton_Click"/>
+
+                    </StackPanel>
                     <ListView x:Name="ShoppingListView" Grid.Row="1"
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch"

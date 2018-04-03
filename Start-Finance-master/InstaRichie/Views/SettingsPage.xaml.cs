@@ -36,6 +36,7 @@ namespace StartFinance.Views
             conn.DropTable<Transactions>();
             conn.DropTable<WishList>();
             conn.DropTable<ShoppingList>();
+            conn.DropTable<Personal>();
             conn.DropTable<Category>();
         }
 

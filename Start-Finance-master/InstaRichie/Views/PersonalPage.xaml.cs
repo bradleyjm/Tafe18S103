@@ -206,7 +206,6 @@ namespace StartFinance.Views
         private async void updateButton_Click(object sender, RoutedEventArgs e)
         {
 
-
             string updatedSelectGender = "";
             if (radioButtonMale.IsChecked == true)
             {
@@ -222,9 +221,8 @@ namespace StartFinance.Views
                 await dialog.ShowAsync();
             }
 
-            string selEmail = _Email.Text.ToString();
-
-            conn.CreateTable<Personal>();
+            // email is unique
+            string AccSelectionEmail = ((Personal)PersonalView.SelectedItem).Email;
 
             string update_FirstName = _FirstName.Text.ToString();
             string update_LastName = _LastName.Text.ToString();
@@ -234,7 +232,7 @@ namespace StartFinance.Views
             string update_Address = _Address.Text.ToString();
             string update_MobilePhone = _MobilePhone.Text.ToString();
 
-            var query3 = conn.Query<Personal>("UPDATE Personal SET FirstName =  '" + update_FirstName + "', LastName = '" + update_LastName + "', DOB = '" + update_DOB + "', Gender = '" + update_Gender + "', Email = '" + update_Email + "', Address = '" + update_Address + "', MobilePhone = '" + update_MobilePhone + "' WHERE Email ='" + selEmail + "'");
+            var query3 = conn.Query<Personal>("UPDATE Personal SET FirstName =  '" + update_FirstName + "', LastName = '" + update_LastName + "', DOB = '" + update_DOB + "', Gender = '" + update_Gender + "', Email = '" + update_Email + "', Address = '" + update_Address + "', MobilePhone = '" + update_MobilePhone + "' WHERE Email ='" + AccSelectionEmail + "'");
             
             _Email.Text = "";
             _FirstName.Text = "";
