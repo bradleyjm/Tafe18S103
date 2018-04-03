@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StartFinance.Models
 {
-    class ContactDetails
+    public class ContactDetails
     {
         [PrimaryKey, AutoIncrement]
         public int ContactID { get; set; }
