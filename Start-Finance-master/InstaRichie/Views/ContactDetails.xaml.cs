@@ -136,10 +136,6 @@ namespace StartFinance.Views
             try
             {
                 string AccSelection = ((ContactDetails)ContactDetailsView.SelectedItem).ContactID.ToString();
-                firstName.Text = ContactDetailsView.SelectedItem.ToString();
-                lastName.Text = ContactDetailsView.SelectedItem.ToString();
-                companyName.Text = ContactDetailsView.SelectedItem.ToString();
-                mobilePhone.Text = ContactDetailsView.SelectedItem.ToString();
                 if (AccSelection == "")
                 {
                     MessageDialog dialog = new MessageDialog("Not selected the Item", "Oops..!");
@@ -149,7 +145,7 @@ namespace StartFinance.Views
                 {
                     conn.CreateTable<ContactDetails>();
                     var query1 = conn.Table<ContactDetails>();
-                    var query3 = conn.Query<ContactDetails>("DELETE FROM ContactDetailsTbl WHERE ContactID ='" + AccSelection + "'");
+                    var query3 = conn.Query<ContactDetails>("DELETE FROM ContactDetails WHERE ContactID ='" + AccSelection + "'");
                     ContactDetailsView.ItemsSource = query1.ToList();
                 }
             }
