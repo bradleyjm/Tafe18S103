@@ -49,32 +49,20 @@ namespace StartFinance.Views
         {
             try
             {
-                string CDay = appointmentDate.Date.Value.Day.ToString();
-                string CMonth = appointmentDate.Date.Value.Month.ToString();
-                string CYear = appointmentDate.Date.Value.Year.ToString();
+                string CDay = appointmentDate.Date.Day.ToString();
+                string CMonth = appointmentDate.Date.Month.ToString();
+                string CYear = appointmentDate.Date.Year.ToString();
                 string FinalDate = " On " + CMonth + "/" + CDay + "/" + CYear;
 
                 string Hours = startTimePicker.Time.Hours.ToString();
                 string Minutes = startTimePicker.Time.Minutes.ToString();
-                string iden;
-                if (startTimePicker.Time.Hours > 11)
-                {
-                    iden = "pm";
-                }
-                else { iden = "am"; }
 
-                string finalStartTime = " Starts at " + Hours + ":" + Minutes + iden;
+                string finalStartTime = " Starts at " + Hours + ":" + Minutes;
 
                 string Hours2 = endTimePicker.Time.Hours.ToString();
                 string Minutes2 = endTimePicker.Time.Minutes.ToString();
-                string iden2;
-                if (startTimePicker.Time.Hours > 11)
-                {
-                    iden2 = "pm";
-                }
-                else { iden2 = "am"; }
 
-                string finalEndTime = " Ends at " + Hours2 + ":" + Minutes2 + iden2;
+                string finalEndTime = " Ends at " + Hours2 + ":" + Minutes2 ;
 
 
                 if (txtEventName.Text.ToString() == "")
@@ -101,7 +89,7 @@ namespace StartFinance.Views
             {
                 if (ex is FormatException)
                 {
-                    MessageDialog dialog = new MessageDialog("You forgot to enter the date or entered an Date", "Oops..!");
+                    MessageDialog dialog = new MessageDialog("You forgot to enter the date or entered an invalid Date", "Oops..!");
                     await dialog.ShowAsync();
                 }
                 else if (ex is SQLiteException)
@@ -143,6 +131,59 @@ namespace StartFinance.Views
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             Results();
+        }
+
+        private async void AppBarButton_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (AppointmentListView.SelectedIndex > -1)
+            {
+                btnUpdate.Visibility = Visibility.Visible;
+                string eventName = ((Appointment)AppointmentListView.SelectedItem).EventName;
+                string eventLocation = ((Appointment)AppointmentListView.SelectedItem).Location;
+                string eventDate = ((Appointment)AppointmentListView.SelectedItem).EventDate;
+                string startTime = ((Appointment)AppointmentListView.SelectedItem).StartTime;
+                string endTime = ((Appointment)AppointmentListView.SelectedItem).EndTime;
+
+                txtEventName.Text = eventName;
+                txtLocation.Text = eventLocation;
+            }
+            else
+            {
+                MessageDialog dialog = new MessageDialog("No Selected item to Edit", "Oops..!");
+                await dialog.ShowAsync();
+            }
+        }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            int AccSelection = ((Appointment)AppointmentListView.SelectedItem).AppointmentID;
+            string CDay = appointmentDate.Date.Day.ToString();
+            string CMonth = appointmentDate.Date.Month.ToString();
+            string CYear = appointmentDate.Date.Year.ToString();
+            string FinalDate = " On " + CMonth + "/" + CDay + "/" + CYear;
+
+            string Hours = startTimePicker.Time.Hours.ToString();
+            string Minutes = startTimePicker.Time.Minutes.ToString();
+            string finalStartTime = " Starts at " + Hours + ":" + Minutes;
+
+            string Hours2 = endTimePicker.Time.Hours.ToString();
+            string Minutes2 = endTimePicker.Time.Minutes.ToString();
+            string finalEndTime = " Ends at " + Hours2 + ":" + Minutes2;
+
+            string eventName = txtEventName.Text.ToString();
+            string eventLocation = txtLocation.Text.ToString();
+            string eventDate = FinalDate.ToString();
+            string startTime = finalStartTime.ToString();
+            string endTime = finalEndTime.ToString();
+
+            var query = conn.Query<Appointment>("UPDATE Appointment SET EventName = '" + eventName + "', Location = '" + eventLocation + "', EventDate = '" + FinalDate + "', StartTime = '" + startTime + "', EndTime = '" + endTime + "' WHERE AppointmentID ='" + AccSelection + "'");
+
+            txtEventName.Text = "";
+            txtLocation.Text = "";
+
+            btnUpdate.Visibility = Visibility.Collapsed;
+            Results();
+            
         }
     }
 }

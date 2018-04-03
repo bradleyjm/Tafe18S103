@@ -38,8 +38,9 @@
                              RelativePanel.AlignBottomWithPanel="True">
             <!--primary commands-->
             <controls:PageHeader.PrimaryCommands>
-                <AppBarButton Icon="Add" Label="Add Appointment" Click="AddAppointment_Click"/>
-                <AppBarButton Icon="Delete" Label="Delete Appointment" Click="AppBarButton_Click"/>
+                <AppBarButton Icon="Add" Label="Add" Click="AddAppointment_Click"/>
+                <AppBarButton Icon="Edit" Label="Edit" Click="AppBarButton_Click_1"/>
+                <AppBarButton Icon="Delete" Label="Delete" Click="AppBarButton_Click"/>
             </controls:PageHeader.PrimaryCommands>
         </controls:PageHeader>
 
@@ -59,17 +60,18 @@
                         <TextBox x:Name="txtEventName" PlaceholderText="Concert" Header="Event Name"/>
                         <TextBox x:Name="txtLocation" Header="Location" PlaceholderText="Example Location" TextWrapping="Wrap"/>
                         <TextBlock Name="dateTextBlock" Text="Event Date" />
-                        <CalendarDatePicker Name="appointmentDate" Width="336"/>
+                        <DatePicker Name="appointmentDate" Width="336" />
                         <TextBlock Name="startTimeTextBlock" Text="Start Time" />
-                        <TimePicker Name="startTimePicker" Width="336" />
+                        <TimePicker Name="startTimePicker" Width="336" ClockIdentifier="24HourClock" />
                         <TextBlock Name="endTimeTextBlock" Text="End Time" />
-                        <TimePicker Name="endTimePicker" Width="336" />
+                        <TimePicker Name="endTimePicker" Width="336" ClockIdentifier="24HourClock" />
                     </StackPanel>
-                    
+                    <Button x:Name="btnUpdate" Content="Update" Visibility="Collapsed" HorizontalAlignment="Stretch" Margin="0,5,0,0" Grid.Row="1" VerticalAlignment="Top" Click="btnUpdate_Click"/>
+
                     <ListView x:Name="AppointmentListView" Grid.Row="1"
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch"
-                              ItemTemplate="{StaticResource AppointmentDataViews}">
+                              ItemTemplate="{StaticResource AppointmentDataViews}" Margin="0,42,0,0">
                         <RelativePanel.Below>pageStart</RelativePanel.Below>
                     </ListView>
                 </Grid>
