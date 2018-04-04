@@ -15,5 +15,10 @@ namespace StartFinance.Views
             InitializeComponent();
             NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
         }
+
+        private void pageHeader_Opened(object sender, object e)
+        {
+
+        }
     }
 }
