@@ -123,21 +123,18 @@ namespace StartFinance.Views
         private async void UpdateShoppingList_Click(object sender, RoutedEventArgs e)
         {
 
-            //   string populatedFirstName;
-            //   populatedFirstName = _FirstName.Text.ToString();
-            string selShopName = ((ShoppingList)ShoppingListView.SelectedItem).ShopName;
 
             try
             {
-                string AccSelection = ((ShoppingList)ShoppingListView.SelectedItem).NameOfItem;
-                if (AccSelection == "")
+                string selNameOfItem = ((ShoppingList)ShoppingListView.SelectedItem).NameOfItem;
+                if (selNameOfItem == "")
                 {
                     MessageDialog dialog = new MessageDialog("Not selected the Item", "Oops..!");
                     await dialog.ShowAsync();
                 }
                 else
                 {
-                    string selNameOfItem = ((ShoppingList)ShoppingListView.SelectedItem).NameOfItem;
+                    string selShopName = ((ShoppingList)ShoppingListView.SelectedItem).ShopName;
                     string selShoppingDate = ((ShoppingList)ShoppingListView.SelectedItem).ShoppingDate;
                     double selPriceQuoted = ((ShoppingList)ShoppingListView.SelectedItem).PriceQuoted;
 
