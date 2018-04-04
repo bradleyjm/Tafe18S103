@@ -7,7 +7,7 @@ using SQLite.Net.Attributes;
 
 namespace StartFinance.Models
 {
-    class Appointment
+    public class Appointment
     {
         [PrimaryKey, AutoIncrement]
         public int AppointmentID { get; set; }

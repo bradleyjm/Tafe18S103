@@ -66,12 +66,13 @@
                         <TextBlock Name="endTimeTextBlock" Text="End Time" />
                         <TimePicker Name="endTimePicker" Width="336" ClockIdentifier="24HourClock" />
                     </StackPanel>
-                    <Button x:Name="btnUpdate" Content="Update" Visibility="Collapsed" HorizontalAlignment="Stretch" Margin="0,5,0,0" Grid.Row="1" VerticalAlignment="Top" Click="btnUpdate_Click"/>
+                    <Button x:Name="btnUpdate" Content="Update" Visibility="Collapsed"  HorizontalAlignment="Stretch" Margin="0,5,0,0" Grid.Row="1" VerticalAlignment="Top" Click="btnUpdate_Click" Height="32"/>
+                    <TextBlock Name="editPrompTextBlock" Text="Edit your Values above!" Margin="0,42,0,148" Grid.Row="1" Visibility="Collapsed" />
 
                     <ListView x:Name="AppointmentListView" Grid.Row="1"
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch"
-                              ItemTemplate="{StaticResource AppointmentDataViews}" Margin="0,42,0,0">
+                              ItemTemplate="{StaticResource AppointmentDataViews}" Margin="0,68,0,0">
                         <RelativePanel.Below>pageStart</RelativePanel.Below>
                     </ListView>
                 </Grid>

@@ -28,7 +28,7 @@ namespace StartFinance.Views
     public sealed partial class AppointmentPage : Page
     {
         SQLiteConnection conn;
-        string path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "Findata.sqllite");
+        string path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "Findata.sqlite");
 
         public AppointmentPage()
         {
@@ -83,6 +83,9 @@ namespace StartFinance.Views
                     });
                     // Creating table
                     Results();
+
+                    txtEventName.Text = "";
+                    txtLocation.Text = "";
                 }
             }
             catch (Exception ex)
@@ -146,6 +149,7 @@ namespace StartFinance.Views
 
                 txtEventName.Text = eventName;
                 txtLocation.Text = eventLocation;
+                editPrompTextBlock.Visibility = Visibility.Visible;
             }
             else
             {
@@ -182,6 +186,7 @@ namespace StartFinance.Views
             txtLocation.Text = "";
 
             btnUpdate.Visibility = Visibility.Collapsed;
+            editPrompTextBlock.Visibility = Visibility.Collapsed;
             Results();
             
         }
