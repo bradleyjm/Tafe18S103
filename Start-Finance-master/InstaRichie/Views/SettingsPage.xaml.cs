@@ -38,6 +38,7 @@ namespace StartFinance.Views
             conn.DropTable<ShoppingList>();
             conn.DropTable<Personal>();
             conn.DropTable<Category>();
+            conn.DropTable<ContactDetails>();
         }
 
         private void BusyTextTextBox_TextChanged(object sender, TextChangedEventArgs e)
