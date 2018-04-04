@@ -122,7 +122,6 @@ namespace StartFinance.Views
                     updateButton.Visibility = Visibility;
                 }
 
-                var query3 = conn.Query<ContactDetails>("DELETE FROM ContactDetailsTbl WHERE ContactID ='" + AccSelection + "'");
             }
             catch (NullReferenceException)
             {
